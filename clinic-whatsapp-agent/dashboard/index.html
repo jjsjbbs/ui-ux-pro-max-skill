@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ClinicBot — Panel de Control</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&family=Noto+Sans:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#0891B2', 'primary-dark': '#0E7490',
+            secondary: '#22D3EE', accent: '#16A34A',
+            background: '#F0FDFA', foreground: '#134E4A',
+            muted: '#E8F1F6', border: '#CCFBF1',
+            destructive: '#DC2626',
+          },
+          fontFamily: { sans: ['Figtree', 'Noto Sans', 'sans-serif'] },
+        }
+      }
+    }
+  </script>
+  <style>
+    :root { --scrollbar-color: #CCFBF1; }
+    body { font-family: 'Figtree', 'Noto Sans', sans-serif; background: #F0FDFA; color: #134E4A; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-thumb { background: #CCFBF1; border-radius: 3px; }
+    .stage-badge { @apply text-xs font-medium px-2 py-0.5 rounded-full; }
+    .chat-bubble-user { background: #E8F1F6; border-radius: 18px 18px 4px 18px; }
+    .chat-bubble-bot  { background: #0891B2; color: #fff; border-radius: 18px 18px 18px 4px; }
+    .pulse { animation: pulse 2s cubic-bezier(0.4,0,0.6,1) infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.5} }
+  </style>
+</head>
+<body class="min-h-screen">
+
+<!-- Top Nav -->
+<header class="bg-white border-b border-border shadow-sm sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-9 h-9 rounded-xl bg-primary flex items-center justify-center">
+        <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+        </svg>
+      </div>
+      <div>
+        <h1 class="text-base font-700 text-foreground leading-none" id="clinic-name">ClinicBot</h1>
+        <p class="text-xs text-primary mt-0.5">Agente WhatsApp — Panel de Control</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span id="live-dot" class="w-2 h-2 bg-accent rounded-full pulse"></span>
+      <span class="text-xs text-foreground/60 font-medium">En vivo</span>
+      <button onclick="refreshAll()" class="text-xs bg-primary text-white px-3 py-1.5 rounded-lg hover:bg-primary-dark transition-colors cursor-pointer">
+        Actualizar
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-6">
+
+  <!-- Stats Cards -->
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+    <div class="bg-white rounded-2xl border border-border p-4 shadow-sm">
+      <p class="text-xs text-foreground/50 font-medium uppercase tracking-wide">Conversaciones</p>
+      <p class="text-3xl font-700 text-foreground mt-1" id="stat-total">—</p>
+      <p class="text-xs text-foreground/40 mt-1">Totales activas</p>
+    </div>
+    <div class="bg-white rounded-2xl border border-border p-4 shadow-sm">
+      <p class="text-xs text-accent font-medium uppercase tracking-wide">Calificados</p>
+      <p class="text-3xl font-700 text-accent mt-1" id="stat-qualified">—</p>
+      <p class="text-xs text-foreground/40 mt-1">Pacientes aptos</p>
+    </div>
+    <div class="bg-white rounded-2xl border border-border p-4 shadow-sm">
+      <p class="text-xs text-primary font-medium uppercase tracking-wide">Citas agendadas</p>
+      <p class="text-3xl font-700 text-primary mt-1" id="stat-booked">—</p>
+      <p class="text-xs text-foreground/40 mt-1">Confirmadas</p>
+    </div>
+    <div class="bg-white rounded-2xl border border-border p-4 shadow-sm">
+      <p class="text-xs text-foreground/50 font-medium uppercase tracking-wide">Conversión</p>
+      <p class="text-3xl font-700 text-foreground mt-1" id="stat-conversion">—%</p>
+      <p class="text-xs text-foreground/40 mt-1">Cita / Conversación</p>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+    <!-- Sessions List -->
+    <div class="lg:col-span-1 bg-white rounded-2xl border border-border shadow-sm flex flex-col" style="max-height:600px">
+      <div class="p-4 border-b border-border flex items-center justify-between shrink-0">
+        <h2 class="font-600 text-foreground">Pacientes activos</h2>
+        <span id="sessions-count" class="bg-muted text-foreground/60 text-xs font-medium px-2 py-0.5 rounded-full">0</span>
+      </div>
+      <div id="sessions-list" class="overflow-y-auto flex-1 divide-y divide-border">
+        <div class="p-6 text-center text-foreground/40 text-sm">
+          <svg class="w-8 h-8 mx-auto mb-2 opacity-30" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a2 2 0 01-2-2v-1M7 3H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l4-4h5a2 2 0 002-2V5a2 2 0 00-2-2z" /></svg>
+          Sin conversaciones aún
+        </div>
+      </div>
+    </div>
+
+    <!-- Conversation Detail -->
+    <div class="lg:col-span-2 bg-white rounded-2xl border border-border shadow-sm flex flex-col" style="max-height:600px">
+      <div class="p-4 border-b border-border shrink-0 flex items-center justify-between">
+        <div>
+          <h2 class="font-600 text-foreground" id="detail-name">Selecciona un paciente</h2>
+          <p class="text-xs text-foreground/50 mt-0.5" id="detail-phone">—</p>
+        </div>
+        <div id="detail-badge" class="hidden">
+          <span id="detail-stage" class="stage-badge bg-muted text-foreground/60">—</span>
+        </div>
+      </div>
+
+      <!-- Patient info bar -->
+      <div id="patient-info" class="hidden px-4 py-3 bg-background border-b border-border shrink-0">
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+          <div><span class="text-foreground/40 uppercase tracking-wide font-medium">Problema</span><p class="font-500 text-foreground mt-0.5 truncate" id="info-problem">—</p></div>
+          <div><span class="text-foreground/40 uppercase tracking-wide font-medium">Especialidad</span><p class="font-500 text-foreground mt-0.5 truncate" id="info-specialty">—</p></div>
+          <div><span class="text-foreground/40 uppercase tracking-wide font-medium">Duración</span><p class="font-500 text-foreground mt-0.5 truncate" id="info-duration">—</p></div>
+          <div><span class="text-foreground/40 uppercase tracking-wide font-medium">Ciudad</span><p class="font-500 text-foreground mt-0.5 truncate" id="info-city">—</p></div>
+        </div>
+      </div>
+
+      <!-- Messages -->
+      <div id="messages-panel" class="overflow-y-auto flex-1 p-4 space-y-3">
+        <div class="flex items-center justify-center h-full">
+          <p class="text-foreground/30 text-sm">Selecciona una conversación para ver los mensajes</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Test Chat Widget -->
+  <div class="bg-white rounded-2xl border border-border shadow-sm overflow-hidden">
+    <div class="p-4 border-b border-border flex items-center gap-2">
+      <div class="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center">
+        <svg class="w-4 h-4 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>
+      </div>
+      <h2 class="font-600 text-foreground">Probar agente (simulador WhatsApp)</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-0 divide-y md:divide-y-0 md:divide-x divide-border">
+
+      <!-- Chat area -->
+      <div class="flex flex-col" style="height:400px">
+        <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-3 bg-background/50">
+          <div class="chat-bubble-bot text-sm px-4 py-2.5 max-w-xs">
+            👋 Escribe un mensaje para iniciar la conversación con el agente.
+          </div>
+        </div>
+        <div class="p-3 border-t border-border bg-white flex gap-2">
+          <input id="chat-input" type="text" placeholder="Escribe tu mensaje..."
+            class="flex-1 text-sm border border-border rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary/30 bg-white"
+            onkeydown="if(event.key==='Enter') sendChat()" />
+          <button onclick="sendChat()" class="bg-primary text-white text-sm px-4 py-2 rounded-xl hover:bg-primary-dark transition-colors cursor-pointer font-medium">
+            Enviar
+          </button>
+        </div>
+      </div>
+
+      <!-- Session state -->
+      <div class="p-4 overflow-y-auto" style="height:400px">
+        <h3 class="text-xs font-600 text-foreground/50 uppercase tracking-wide mb-3">Estado del paciente</h3>
+        <div id="chat-state" class="space-y-2 text-sm text-foreground/60">
+          <p>Inicia la conversación para ver el estado.</p>
+        </div>
+        <div class="mt-4 pt-4 border-t border-border">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="text-xs font-600 text-foreground/50 uppercase tracking-wide">Número de prueba</h3>
+          </div>
+          <input id="test-phone" type="text" value="+52test0001" placeholder="+52..."
+            class="w-full text-xs border border-border rounded-lg px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-primary/30" />
+          <button onclick="resetChat()" class="mt-2 w-full text-xs text-destructive border border-destructive/30 py-1.5 rounded-lg hover:bg-destructive/5 transition-colors cursor-pointer">
+            Reiniciar conversación
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Clinic Info -->
+  <div id="clinic-info" class="bg-white rounded-2xl border border-border shadow-sm p-4">
+    <h2 class="font-600 text-foreground mb-3">Información de la clínica</h2>
+    <div id="clinic-locations" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+      <div class="animate-pulse bg-muted rounded-xl h-24"></div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+const API = window.location.origin;
+let selectedPhone = null;
+
+// ── Stage labels ──────────────────────────────────────────────────────────────
+const STAGE_LABELS = {
+  welcome: { label: 'Bienvenida', color: 'bg-blue-50 text-blue-600' },
+  detect_treatment: { label: 'Detectando tratamiento', color: 'bg-purple-50 text-purple-600' },
+  qualify_problem: { label: 'Cualificando — Problema', color: 'bg-yellow-50 text-yellow-600' },
+  qualify_duration: { label: 'Cualificando — Duración', color: 'bg-yellow-50 text-yellow-600' },
+  qualify_previous: { label: 'Cualificando — Historial', color: 'bg-yellow-50 text-yellow-600' },
+  qualify_urgency: { label: 'Cualificando — Urgencia', color: 'bg-orange-50 text-orange-600' },
+  request_location: { label: 'Solicitando ubicación', color: 'bg-cyan-50 text-cyan-600' },
+  clinic_match: { label: 'Buscando sucursal', color: 'bg-cyan-50 text-cyan-600' },
+  show_schedule: { label: 'Mostrando horarios', color: 'bg-teal-50 text-teal-600' },
+  booking_confirm: { label: 'Confirmando cita', color: 'bg-primary/10 text-primary' },
+  completed: { label: '✓ Cita confirmada', color: 'bg-green-50 text-green-600' },
+  disqualified: { label: '✗ No califica', color: 'bg-red-50 text-red-600' },
+};
+
+function stageBadge(stage) {
+  const info = STAGE_LABELS[stage] || { label: stage, color: 'bg-muted text-foreground/60' };
+  return `<span class="stage-badge ${info.color}">${info.label}</span>`;
+}
+
+// ── Stats ─────────────────────────────────────────────────────────────────────
+async function loadStats() {
+  try {
+    const r = await fetch(`${API}/api/stats`);
+    const d = await r.json();
+    document.getElementById('stat-total').textContent = d.total_conversations;
+    document.getElementById('stat-qualified').textContent = d.qualified;
+    document.getElementById('stat-booked').textContent = d.booked;
+    document.getElementById('stat-conversion').textContent = d.conversion_rate + '%';
+  } catch(e) { console.warn('Stats unavailable', e); }
+}
+
+// ── Sessions ──────────────────────────────────────────────────────────────────
+async function loadSessions() {
+  try {
+    const r = await fetch(`${API}/api/sessions`);
+    const d = await r.json();
+    const list = document.getElementById('sessions-list');
+    document.getElementById('sessions-count').textContent = d.total;
+
+    if (!d.sessions.length) {
+      list.innerHTML = `<div class="p-6 text-center text-foreground/40 text-sm">Sin conversaciones activas</div>`;
+      return;
+    }
+
+    list.innerHTML = d.sessions.map(s => {
+      const p = s.patient || {};
+      const name = p.name || s.phone;
+      const active = selectedPhone === s.phone;
+      return `
+        <div onclick="selectSession('${s.phone}')"
+          class="p-3 hover:bg-background cursor-pointer transition-colors ${active ? 'bg-background border-l-2 border-primary' : ''}">
+          <div class="flex items-start justify-between gap-2">
+            <div class="min-w-0">
+              <p class="font-500 text-sm text-foreground truncate">${name}</p>
+              <p class="text-xs text-foreground/40 truncate">${s.phone}</p>
+              ${p.problem ? `<p class="text-xs text-foreground/50 truncate mt-0.5">${p.problem}</p>` : ''}
+            </div>
+            <div class="shrink-0">${stageBadge(s.stage)}</div>
+          </div>
+        </div>`;
+    }).join('');
+  } catch(e) { console.warn('Sessions unavailable', e); }
+}
+
+// ── Session detail ────────────────────────────────────────────────────────────
+async function selectSession(phone) {
+  selectedPhone = phone;
+  await loadSessions(); // re-render with active highlight
+  try {
+    const r = await fetch(`${API}/api/sessions/${encodeURIComponent(phone)}`);
+    const d = await r.json();
+    const s = d.session;
+    const p = s.patient || {};
+
+    document.getElementById('detail-name').textContent = p.name || phone;
+    document.getElementById('detail-phone').textContent = phone;
+    document.getElementById('detail-badge').classList.remove('hidden');
+    document.getElementById('detail-stage').className = `stage-badge ${(STAGE_LABELS[s.stage] || {}).color || 'bg-muted text-foreground/60'}`;
+    document.getElementById('detail-stage').textContent = (STAGE_LABELS[s.stage] || {}).label || s.stage;
+
+    document.getElementById('patient-info').classList.remove('hidden');
+    document.getElementById('info-problem').textContent = p.problem || '—';
+    document.getElementById('info-specialty').textContent = p.specialty || '—';
+    document.getElementById('info-duration').textContent = p.duration || '—';
+    document.getElementById('info-city').textContent = p.city || '—';
+
+    const msgs = d.messages || [];
+    const panel = document.getElementById('messages-panel');
+    if (!msgs.length) {
+      panel.innerHTML = '<p class="text-foreground/30 text-sm text-center">Sin mensajes</p>';
+      return;
+    }
+    panel.innerHTML = msgs.map(m => {
+      const isUser = m.role === 'user';
+      return `
+        <div class="flex ${isUser ? 'justify-end' : 'justify-start'}">
+          <div class="${isUser ? 'chat-bubble-user' : 'chat-bubble-bot'} text-sm px-4 py-2.5 max-w-sm whitespace-pre-wrap">${m.content}</div>
+        </div>`;
+    }).join('');
+    panel.scrollTop = panel.scrollHeight;
+  } catch(e) { console.warn('Session detail error', e); }
+}
+
+// ── Clinic info ───────────────────────────────────────────────────────────────
+async function loadClinicInfo() {
+  try {
+    const r = await fetch(`${API}/api/clinic`);
+    const d = await r.json();
+    document.getElementById('clinic-name').textContent = d.name + ' — Panel';
+    document.title = d.name + ' — ClinicBot Panel';
+    const container = document.getElementById('clinic-locations');
+    container.innerHTML = d.locations.map(loc => `
+      <div class="bg-background rounded-xl p-3 border border-border">
+        <p class="font-600 text-sm text-foreground">${loc.name}</p>
+        <p class="text-xs text-foreground/50 mt-0.5">${loc.address}</p>
+        <p class="text-xs text-primary mt-1">${loc.phone}</p>
+        <div class="flex flex-wrap gap-1 mt-2">
+          ${loc.specialties.map(sp => `<span class="text-xs bg-primary/10 text-primary px-1.5 py-0.5 rounded-md">${sp}</span>`).join('')}
+        </div>
+        <div class="mt-2 space-y-0.5">
+          ${loc.doctors.map(d => `<p class="text-xs text-foreground/50">${d.name} — ${d.specialty}</p>`).join('')}
+        </div>
+      </div>`).join('');
+  } catch(e) { document.getElementById('clinic-locations').innerHTML = '<p class="text-sm text-foreground/40">No se pudo cargar la información.</p>'; }
+}
+
+// ── Test chat ─────────────────────────────────────────────────────────────────
+let chatLoading = false;
+
+async function sendChat() {
+  if (chatLoading) return;
+  const input = document.getElementById('chat-input');
+  const phone = document.getElementById('test-phone').value.trim() || '+52test0001';
+  const msg = input.value.trim();
+  if (!msg) return;
+
+  appendChatMsg(msg, 'user');
+  input.value = '';
+  chatLoading = true;
+
+  // Typing indicator
+  const typingId = 'typing-' + Date.now();
+  document.getElementById('chat-messages').insertAdjacentHTML('beforeend',
+    `<div id="${typingId}" class="flex justify-start"><div class="chat-bubble-bot text-sm px-4 py-2.5 opacity-60">…</div></div>`);
+  document.getElementById('chat-messages').scrollTop = 99999;
+
+  try {
+    const r = await fetch(`${API}/api/chat`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ phone, message: msg }),
+    });
+    const d = await r.json();
+    document.getElementById(typingId)?.remove();
+    appendChatMsg(d.reply, 'bot');
+    renderChatState(d.stage, d.patient);
+    await loadSessions();
+    await loadStats();
+  } catch(e) {
+    document.getElementById(typingId)?.remove();
+    appendChatMsg('Error al conectar con el servidor. Verifica que esté corriendo.', 'bot');
+  }
+  chatLoading = false;
+}
+
+async function resetChat() {
+  const phone = document.getElementById('test-phone').value.trim() || '+52test0001';
+  await fetch(`${API}/api/chat/${encodeURIComponent(phone)}`, { method: 'DELETE' });
+  document.getElementById('chat-messages').innerHTML = `
+    <div class="chat-bubble-bot text-sm px-4 py-2.5 max-w-xs">
+      Conversación reiniciada. Escribe un mensaje para empezar.
+    </div>`;
+  document.getElementById('chat-state').innerHTML = '<p>Inicia la conversación para ver el estado.</p>';
+  await loadSessions();
+  await loadStats();
+}
+
+function appendChatMsg(text, role) {
+  const isUser = role === 'user';
+  const el = document.createElement('div');
+  el.className = `flex ${isUser ? 'justify-end' : 'justify-start'}`;
+  el.innerHTML = `<div class="${isUser ? 'chat-bubble-user' : 'chat-bubble-bot'} text-sm px-4 py-2.5 max-w-sm whitespace-pre-wrap">${text}</div>`;
+  document.getElementById('chat-messages').appendChild(el);
+  document.getElementById('chat-messages').scrollTop = 99999;
+}
+
+function renderChatState(stage, patient) {
+  const info = STAGE_LABELS[stage] || { label: stage, color: '' };
+  document.getElementById('chat-state').innerHTML = `
+    <div class="space-y-2">
+      <div class="flex items-center gap-2">
+        <span class="stage-badge ${info.color}">${info.label}</span>
+      </div>
+      ${patient ? `
+      <div class="bg-background rounded-lg p-2 text-xs space-y-1">
+        ${patient.name ? `<p><span class="text-foreground/40">Nombre:</span> ${patient.name}</p>` : ''}
+        ${patient.problem ? `<p><span class="text-foreground/40">Problema:</span> ${patient.problem}</p>` : ''}
+        ${patient.specialty ? `<p><span class="text-foreground/40">Especialidad:</span> ${patient.specialty}</p>` : ''}
+        ${patient.duration ? `<p><span class="text-foreground/40">Duración:</span> ${patient.duration}</p>` : ''}
+        ${patient.city ? `<p><span class="text-foreground/40">Ciudad:</span> ${patient.city}</p>` : ''}
+        ${patient.qualifies !== null && patient.qualifies !== undefined ? `<p><span class="text-foreground/40">Califica:</span> <span class="${patient.qualifies ? 'text-accent' : 'text-destructive'}">${patient.qualifies ? 'Sí' : 'No'}</span></p>` : ''}
+      </div>` : ''}
+    </div>`;
+}
+
+function refreshAll() {
+  loadStats();
+  loadSessions();
+  if (selectedPhone) selectSession(selectedPhone);
+}
+
+// Auto-refresh every 15s
+setInterval(refreshAll, 15000);
+
+// Initial load
+loadStats();
+loadSessions();
+loadClinicInfo();
+</script>
+</body>
+</html>
