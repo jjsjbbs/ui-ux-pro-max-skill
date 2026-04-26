@@ -1,0 +1,318 @@
+{
+  "specialties": {
+    "capilar": {
+      "label": "Medicina Capilar",
+      "icon": "hair",
+      "keywords": ["caída del pelo", "alopecia", "calvicie", "pelo fino", "entradas", "cabello", "trasplante capilar", "PRP capilar", "minoxidil"],
+      "treatments": {
+        "diagnostico_capilar": {
+          "name": "Diagnóstico Capilar Avanzado",
+          "duration_min": 30,
+          "description": "Tricoscopía digital + analítica hormonal para identificar el origen exacto de tu caída: estrés, hormonal, genética o déficit nutricional.",
+          "cuando": "Desde la primera señal de caída o adelgazamiento del cabello.",
+          "resultado": "Diagnóstico preciso y plan de tratamiento personalizado en una sola visita."
+        },
+        "prp_capilar": {
+          "name": "PRP Capilar (Plasma Rico en Plaquetas)",
+          "duration_min": 45,
+          "description": "Extraemos una pequeña muestra de tu sangre, concentramos los factores de crecimiento y los inyectamos en el cuero cabelludo para reactivar los folículos dormidos.",
+          "cuando": "Alopecia androgenética leve-moderada, caída difusa, fases iniciales.",
+          "resultado": "Reducción de la caída en 4-6 semanas. Densidad visible a los 3 meses."
+        },
+        "mesoterapia_capilar": {
+          "name": "Mesoterapia Capilar",
+          "duration_min": 30,
+          "description": "Microinyecciones de vitaminas, minerales y aminoácidos directamente en el cuero cabelludo para nutrir y fortalecer el folículo.",
+          "cuando": "Cabello fino, sin brillo, con caída estacional o por estrés.",
+          "resultado": "Cabello más fuerte y grueso desde la 3.ª sesión."
+        },
+        "trasplante_capilar": {
+          "name": "Valoración para Trasplante Capilar",
+          "duration_min": 60,
+          "description": "Evaluación completa de la zona donante y receptora con mapeo folicular para determinar viabilidad y número de injertos.",
+          "cuando": "Alopecia avanzada donde los tratamientos no invasivos ya no son suficientes.",
+          "resultado": "Resultado natural y permanente."
+        }
+      },
+      "qualification_questions": [
+        "¿Cuándo empezaste a notar la caída — fue gradual o de repente?",
+        "¿Tienes antecedentes familiares de alopecia?",
+        "¿Has recibido algún tratamiento previo — minoxidil, finasterida, mesoterapia?"
+      ],
+      "red_flags": ["cicatriz en el cuero cabelludo", "pérdida total de cejas y pestañas"],
+      "urgency_push": "La caída capilar tiene ventana de tratamiento. Cuanto antes actuemos, más folículos rescatamos."
+    },
+
+    "estetica": {
+      "label": "Medicina Estética",
+      "icon": "sparkles",
+      "keywords": ["botox", "relleno", "ácido hialurónico", "arrugas", "lifting", "rejuvenecimiento", "manchas", "flacidez", "celulitis", "grasa localizada", "rinomodelación", "labios", "ojeras"],
+      "treatments": {
+        "toxina_botulinica": {
+          "name": "Toxina Botulínica (Bótox)",
+          "duration_min": 20,
+          "description": "Relajación selectiva de los músculos de expresión para suavizar arrugas del entrecejo, frente y patas de gallo. Resultado natural, sin cirugía.",
+          "cuando": "Arrugas dinámicas visibles en reposo o al gesticular.",
+          "resultado": "Efecto visible en 72h. Duración 4-6 meses."
+        },
+        "acido_hialuronico": {
+          "name": "Rellenos de Ácido Hialurónico",
+          "duration_min": 30,
+          "description": "Restauramos volumen y definición en surcos nasolabiales, pómulos, mandíbula, labios y ojeras con ácido hialurónico de última generación.",
+          "cuando": "Pérdida de volumen facial, arrugas estáticas, asimetría leve.",
+          "resultado": "Inmediato. Duración 9-18 meses según zona."
+        },
+        "hilos_tensores": {
+          "name": "Hilos Tensores PDO",
+          "duration_min": 60,
+          "description": "Lifting sin bisturí. Insertamos hilos de sutura que elevan los tejidos caídos y estimulan el colágeno de forma natural.",
+          "cuando": "Flacidez facial o cervical moderada, jowls iniciales.",
+          "resultado": "Efecto tensor inmediato. Mejora progresiva 2-3 meses."
+        },
+        "eliminacion_manchas": {
+          "name": "Tratamiento de Manchas (Láser / Peeling)",
+          "duration_min": 45,
+          "description": "Protocolo combinado láser Q-Switch + peeling médico para eliminar manchas solares, melasma y discromías de forma segura.",
+          "cuando": "Manchas visibles en cara, manos o escote.",
+          "resultado": "Reducción del 70-90% en un ciclo de 3-5 sesiones."
+        },
+        "lipoliticos": {
+          "name": "Lipolíticos y Coolsculpting",
+          "duration_min": 45,
+          "description": "Eliminación de grasa localizada sin cirugía: inyecciones de fosfatidilcolina o criolipólisis para papada, abdomen, cartucheras y cara interna de rodillas.",
+          "cuando": "Grasa localizada resistente a dieta y ejercicio.",
+          "resultado": "Reducción visible desde la 4.ª semana."
+        }
+      },
+      "qualification_questions": [
+        "¿Qué zona específica te preocupa o quieres tratar?",
+        "¿Has tenido algún tratamiento estético previo en esa zona?",
+        "¿Tomas anticoagulantes o tienes alguna enfermedad autoinmune?"
+      ],
+      "red_flags": ["embarazo", "lactancia", "alergia al látex"],
+      "urgency_push": "El envejecimiento facial es progresivo. Actuar en la fase correcta da resultados más naturales y duraderos."
+    },
+
+    "odontologia": {
+      "label": "Odontología y Estética Dental",
+      "icon": "tooth",
+      "keywords": ["dientes", "muelas", "ortodoncia", "implante", "funda", "carilla", "blanqueamiento", "encías", "bruxismo", "dolor muela", "caries", "invisalign"],
+      "treatments": {
+        "revision_dental": {
+          "name": "Revisión Bucal Completa",
+          "duration_min": 30,
+          "description": "Exploración clínica + radiografía panorámica digital para detectar caries, enfermedad periodontal, bruxismo y evaluar el estado de tu sonrisa.",
+          "cuando": "Mínimo una vez al año o ante cualquier molestia.",
+          "resultado": "Diagnóstico completo en una visita."
+        },
+        "ortodoncia_invisible": {
+          "name": "Ortodoncia Invisible (Invisalign / Alineadores)",
+          "duration_min": 60,
+          "description": "Corrección de malposiciones dentales con férulas transparentes removibles. Sin brackets, sin restricciones alimentarias.",
+          "cuando": "Dientes apiñados, diastemas, mordidas alteradas.",
+          "resultado": "Sonrisa alineada en 6-18 meses según complejidad."
+        },
+        "implantes": {
+          "name": "Implantes Dentales",
+          "duration_min": 60,
+          "description": "Sustitución de dientes perdidos con implantes de titanio de última generación. La solución más natural y permanente.",
+          "cuando": "Pérdida de uno o varios dientes. Requiere hueso suficiente.",
+          "resultado": "Diente fijo, funcional y estético de por vida."
+        },
+        "blanqueamiento": {
+          "name": "Blanqueamiento Dental Profesional",
+          "duration_min": 90,
+          "description": "Blanqueamiento en clínica con láser + kit domiciliario para mantener el resultado. Hasta 8 tonos más blanco de forma segura.",
+          "cuando": "Dientes amarillos o grisáceos por café, tabaco, té o envejecimiento.",
+          "resultado": "Resultado inmediato. Duración 1-2 años con mantenimiento."
+        },
+        "carillas": {
+          "name": "Carillas de Porcelana / Composite",
+          "duration_min": 90,
+          "description": "Finas láminas de porcelana adheridas a la superficie dental para transformar color, forma y tamaño. El cambio de sonrisa definitivo.",
+          "cuando": "Dientes manchados, pequeños, fracturados o con forma irregular.",
+          "resultado": "Transformación completa en 2-3 visitas."
+        }
+      },
+      "qualification_questions": [
+        "¿Tienes alguna molestia o dolor en este momento?",
+        "¿Llevas prótesis, implante o aparato de ortodoncia actualmente?",
+        "¿Tu principal objetivo es función, estética o ambas?"
+      ],
+      "red_flags": ["dolor agudo espontáneo", "inflamación severa con fiebre"],
+      "urgency_push": "Los problemas dentales empeoран con el tiempo. Lo que hoy es una caries puede convertirse mañana en una endodoncia."
+    },
+
+    "fisioterapia": {
+      "label": "Fisioterapia y Rehabilitación",
+      "icon": "activity",
+      "keywords": ["dolor de espalda", "cervical", "lumbar", "rodilla", "hombro", "lesión deportiva", "contractura", "ciática", "hernia discal", "rehabilitación", "fisio", "pilates"],
+      "treatments": {
+        "valoracion_fisio": {
+          "name": "Valoración Fisioterapéutica",
+          "duration_min": 45,
+          "description": "Evaluación postural, análisis del movimiento y palpación para identificar el origen exacto de tu dolor y establecer el protocolo óptimo.",
+          "cuando": "Cualquier dolor músculo-esquelético, limitación de movimiento o tras lesión.",
+          "resultado": "Diagnóstico funcional y plan de tratamiento en una sesión."
+        },
+        "fisioterapia_manual": {
+          "name": "Fisioterapia Manual + Terapia Miofascial",
+          "duration_min": 60,
+          "description": "Técnicas de movilización articular, masaje terapéutico profundo y liberación miofascial para eliminar el dolor en su origen.",
+          "cuando": "Contracturas, bloqueos articulares, dolor crónico de espalda o cuello.",
+          "resultado": "Mejoría notable desde la primera sesión."
+        },
+        "puncion_seca": {
+          "name": "Punción Seca",
+          "duration_min": 30,
+          "description": "Técnica de fisioterapia invasiva que utiliza agujas de acupuntura para desactivar puntos gatillo miofasciales (nódulos de tensión muscular).",
+          "cuando": "Dolor muscular crónico, fibromialgia, cefaleas tensionales.",
+          "resultado": "Alivio inmediato. Altamente efectivo en dolores rebeldes."
+        },
+        "rehabilitacion_deportiva": {
+          "name": "Rehabilitación Deportiva",
+          "duration_min": 60,
+          "description": "Protocolo específico para deportistas con esguinces, roturas fibrilares, tendinopatías y recuperación post-cirugía ortopédica.",
+          "cuando": "Lesión deportiva o post-operatorio.",
+          "resultado": "Vuelta al deporte en el menor tiempo posible con recaída mínima."
+        }
+      },
+      "qualification_questions": [
+        "¿El dolor es constante o aparece con el movimiento?",
+        "¿Ha habido traumatismo previo — caída, golpe, esfuerzo?",
+        "¿Tienes informe médico, resonancia o ecografía del problema?"
+      ],
+      "red_flags": ["pérdida de fuerza súbita", "incontinencia", "entumecimiento en extremidades"],
+      "urgency_push": "El dolor crónico se cronifica más con el tiempo. Cada semana sin tratar suma compensaciones que complican la recuperación."
+    },
+
+    "dermatologia": {
+      "label": "Dermatología Médica",
+      "icon": "shield",
+      "keywords": ["acné", "psoriasis", "dermatitis", "eccema", "lunares", "manchas", "piel seca", "rosácea", "hongos", "verrugas", "urticaria", "picor"],
+      "treatments": {
+        "consulta_dermato": {
+          "name": "Consulta Dermatológica",
+          "duration_min": 30,
+          "description": "Exploración completa de la piel con dermatoscopio digital de alta resolución. Diagnóstico y tratamiento de cualquier patología cutánea.",
+          "cuando": "Cambios en lunares, erupciones, picor persistente, brotes de acné.",
+          "resultado": "Diagnóstico en consulta. Derivación a biopsia si necesario."
+        },
+        "tratamiento_acne": {
+          "name": "Tratamiento Médico del Acné",
+          "duration_min": 30,
+          "description": "Protocolo combinado de medicación tópica/oral + peeling médico AHA/BHA + láser si es necesario para acné severo.",
+          "cuando": "Acné inflamatorio, comedónico, quístico o con cicatrices.",
+          "resultado": "Control en 8-12 semanas. Cicatrices: protocolo específico adicional."
+        },
+        "mapa_lunar": {
+          "name": "Mapa de Lunares (Teledermatoscopia)",
+          "duration_min": 45,
+          "description": "Fotografiado y registro digital de todos tus lunares para seguimiento evolutivo y detección precoz de melanoma.",
+          "cuando": "Anualmente si tienes más de 50 lunares, piel clara o antecedentes familiares.",
+          "resultado": "Tranquilidad diagnóstica y detección precoz."
+        }
+      },
+      "qualification_questions": [
+        "¿El problema es reciente o llevas tiempo con él?",
+        "¿Has usado algún tratamiento — crema con corticoides, antibióticos, isotretinoína?",
+        "¿Tienes alergias conocidas a medicamentos o cosméticos?"
+      ],
+      "red_flags": ["lunar que sangra o cambia rápido", "placa que no cicatriza en más de 6 semanas"],
+      "urgency_push": "La piel es el reflejo de tu salud. Un diagnóstico precoz puede marcar la diferencia entre un problema menor y uno grave."
+    },
+
+    "nutricion": {
+      "label": "Nutrición Clínica y Deportiva",
+      "icon": "leaf",
+      "keywords": ["adelgazar", "perder peso", "dieta", "obesidad", "colesterol", "diabetes", "nutrición deportiva", "intolerancia", "alimentación", "sobrepeso"],
+      "treatments": {
+        "consulta_nutricion": {
+          "name": "Consulta Nutricional Inicial",
+          "duration_min": 60,
+          "description": "Bioimpedanciometría (análisis de composición corporal), historial dietético completo y diseño de plan nutricional personalizado.",
+          "cuando": "Sobrepeso, objetivos de composición corporal, patologías crónicas, rendimiento deportivo.",
+          "resultado": "Plan de alimentación personalizado desde el primer día."
+        },
+        "seguimiento_nutricional": {
+          "name": "Seguimiento Nutricional Mensual",
+          "duration_min": 30,
+          "description": "Control evolutivo de medidas, ajuste del plan y resolución de dudas. Acceso a la app de seguimiento entre consultas.",
+          "cuando": "Cada 3-4 semanas durante el proceso.",
+          "resultado": "Adherencia y resultados sostenidos a largo plazo."
+        }
+      },
+      "qualification_questions": [
+        "¿Tu objetivo es perder peso, ganar músculo, mejorar analítica o gestionar una patología?",
+        "¿Tienes alguna intolerancia, alergia o enfermedad diagnosticada?",
+        "¿Haces ejercicio físico actualmente?"
+      ],
+      "red_flags": [],
+      "urgency_push": "La nutrición es la base de tu salud. Sin un plan estructurado, los resultados son efímeros. Con uno personalizado, son permanentes."
+    },
+
+    "psicologia": {
+      "label": "Psicología Clínica",
+      "icon": "brain",
+      "keywords": ["ansiedad", "depresión", "estrés", "insomnio", "fobia", "terapia", "psicólogo", "burnout", "autoestima", "relaciones", "trauma", "pánico"],
+      "treatments": {
+        "primera_consulta_psico": {
+          "name": "Primera Consulta Psicológica",
+          "duration_min": 60,
+          "description": "Entrevista clínica en profundidad para entender tu situación, evaluar el nivel de malestar y establecer juntos los objetivos terapéuticos.",
+          "cuando": "Cuando el malestar emocional afecta tu día a día, trabajo o relaciones.",
+          "resultado": "Claridad sobre tu situación y plan de intervención claro."
+        },
+        "terapia_cognitiva": {
+          "name": "Terapia Cognitivo-Conductual (TCC)",
+          "duration_min": 50,
+          "description": "La terapia con mayor evidencia científica para ansiedad, depresión, fobias, TOC y trastornos del sueño.",
+          "cuando": "Ansiedad generalizada, fobia específica, depresión leve-moderada.",
+          "resultado": "Mejoría significativa en 8-12 sesiones."
+        },
+        "gestion_estres": {
+          "name": "Programa de Gestión del Estrés y Burnout",
+          "duration_min": 50,
+          "description": "Protocolo estructurado de 8 semanas con técnicas de regulación emocional, mindfulness clínico y reestructuración cognitiva.",
+          "cuando": "Burnout laboral, estrés crónico, agotamiento emocional.",
+          "resultado": "Reducción medible del estrés y recuperación del bienestar."
+        }
+      },
+      "qualification_questions": [
+        "¿Cuánto tiempo llevas sintiéndote así?",
+        "¿Esto está afectando tu trabajo, sueño o relaciones?",
+        "¿Has recibido apoyo psicológico anteriormente?"
+      ],
+      "red_flags": ["ideación suicida activa"],
+      "urgency_push": "Pedir ayuda psicológica es el acto más inteligente y valiente. Cuanto antes empecemos, más rápido recuperas el control."
+    },
+
+    "medicina_general": {
+      "label": "Medicina General y Preventiva",
+      "icon": "stethoscope",
+      "keywords": ["médico de cabecera", "revisión", "analítica", "vacuna", "chequeo", "tensión", "colesterol", "diabetes", "gripe", "infección", "fiebre"],
+      "treatments": {
+        "chequeo_preventivo": {
+          "name": "Chequeo de Salud Preventivo",
+          "duration_min": 60,
+          "description": "Exploración física completa + analítica de sangre y orina + ECG + índice de riesgo cardiovascular. El mapa de tu salud actual.",
+          "cuando": "Anualmente a partir de los 35 años o ante cualquier cambio en tu estado de salud.",
+          "resultado": "Informe médico detallado con recomendaciones personalizadas."
+        },
+        "consulta_urgente": {
+          "name": "Consulta Médica Prioritaria",
+          "duration_min": 20,
+          "description": "Atención médica ágil para procesos agudos: infecciones, fiebre, dolor abdominal, problemas respiratorios leves.",
+          "cuando": "Síntomas agudos que no requieren urgencias pero sí atención rápida.",
+          "resultado": "Diagnóstico y tratamiento en el día."
+        }
+      },
+      "qualification_questions": [
+        "¿Es un proceso agudo reciente o llevas tiempo con este problema?",
+        "¿Tienes enfermedades crónicas diagnosticadas o tomas medicación habitual?"
+      ],
+      "red_flags": ["dolor en el pecho", "dificultad para respirar", "pérdida de consciencia"],
+      "urgency_push": "Tu salud no puede esperar. Detectar a tiempo es la diferencia entre tratar y curar."
+    }
+  }
+}

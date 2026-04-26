@@ -1,78 +1,110 @@
 {
-  "name": "Clínica Bienestar",
-  "type": "estética y medicina general",
-  "tagline": "Tu bienestar, nuestra misión",
+  "name": "Clínica Médica Vitalia",
+  "type": "clínica de medicina estética y bienestar",
+  "tagline": "Donde tu bienestar es nuestra razón de ser",
   "language": "es",
-  "booking_url": "https://clinicabienestar.com/agendar",
+  "booking_url": "https://vitalia.es/cita-previa",
   "qualification_rules": {
-    "min_duration_days": 0,
     "excluded_conditions": [
-      "infarto", "paro cardíaco", "accidente cerebrovascular", "emergencia"
+      "infarto", "ictus", "pérdida de consciencia", "hemorragia grave"
     ],
     "require_location": true
   },
   "locations": [
     {
-      "id": "loc_centro",
-      "name": "Clínica Bienestar — Centro",
-      "address": "Av. Insurgentes Sur 1234, Col. Del Valle, CDMX",
-      "city": "Ciudad de México",
-      "phone": "+52 55 1234 5678",
-      "whatsapp": "+52 55 1234 5678",
-      "latitude": 19.3984,
-      "longitude": -99.1677,
+      "id": "vitalia_madrid_salamanca",
+      "name": "Vitalia Madrid — Salamanca",
+      "address": "Calle de Serrano 41, 2.º planta",
+      "city": "Madrid",
+      "postal_code": "28001",
+      "phone": "+34 91 123 45 67",
+      "whatsapp": "+34 91 123 45 67",
+      "latitude": 40.4268,
+      "longitude": -3.6875,
       "specialties": [
-        "Medicina General",
+        "Medicina Estética",
         "Dermatología",
         "Nutrición y Dietética",
-        "Medicina Estética",
+        "Medicina General",
         "Psicología"
       ],
       "schedule": {
-        "monday":    { "open": "08:00", "close": "19:00", "break_start": "13:00", "break_end": "14:00", "slot_duration_minutes": 30 },
-        "tuesday":   { "open": "08:00", "close": "19:00", "break_start": "13:00", "break_end": "14:00", "slot_duration_minutes": 30 },
-        "wednesday": { "open": "08:00", "close": "19:00", "break_start": "13:00", "break_end": "14:00", "slot_duration_minutes": 30 },
-        "thursday":  { "open": "08:00", "close": "19:00", "break_start": "13:00", "break_end": "14:00", "slot_duration_minutes": 30 },
-        "friday":    { "open": "08:00", "close": "18:00", "break_start": "13:00", "break_end": "14:00", "slot_duration_minutes": 30 },
+        "monday":    { "open": "09:00", "close": "20:00", "break_start": "14:00", "break_end": "15:00", "slot_duration_minutes": 30 },
+        "tuesday":   { "open": "09:00", "close": "20:00", "break_start": "14:00", "break_end": "15:00", "slot_duration_minutes": 30 },
+        "wednesday": { "open": "09:00", "close": "20:00", "break_start": "14:00", "break_end": "15:00", "slot_duration_minutes": 30 },
+        "thursday":  { "open": "09:00", "close": "20:00", "break_start": "14:00", "break_end": "15:00", "slot_duration_minutes": 30 },
+        "friday":    { "open": "09:00", "close": "18:00", "break_start": "14:00", "break_end": "15:00", "slot_duration_minutes": 30 },
+        "saturday":  { "open": "10:00", "close": "14:00", "slot_duration_minutes": 30 },
+        "sunday":    { "closed": true }
+      },
+      "doctors": [
+        { "id": "dr_001", "name": "Dra. Carmen Alonso Vega",    "specialty": "Medicina Estética",      "languages": ["es"] },
+        { "id": "dr_002", "name": "Dr. Javier Morales Sanz",    "specialty": "Dermatología",           "languages": ["es", "en"] },
+        { "id": "dr_003", "name": "Lic. Beatriz Ruiz Navarro",  "specialty": "Nutrición y Dietética",  "languages": ["es"] },
+        { "id": "dr_004", "name": "Dra. Laura Fernández Gil",   "specialty": "Medicina General",       "languages": ["es"] },
+        { "id": "dr_005", "name": "Psic. Andrés Molina Torres", "specialty": "Psicología",             "languages": ["es"] }
+      ]
+    },
+    {
+      "id": "vitalia_madrid_norte",
+      "name": "Vitalia Madrid — Chamartín",
+      "address": "Paseo de la Castellana 200, Local 3",
+      "city": "Madrid",
+      "postal_code": "28046",
+      "phone": "+34 91 234 56 78",
+      "whatsapp": "+34 91 234 56 78",
+      "latitude": 40.4686,
+      "longitude": -3.6868,
+      "specialties": [
+        "Traumatología y Ortopedia",
+        "Fisioterapia",
+        "Medicina General",
+        "Nutrición y Dietética"
+      ],
+      "schedule": {
+        "monday":    { "open": "08:00", "close": "21:00", "break_start": "14:00", "break_end": "15:30", "slot_duration_minutes": 30 },
+        "tuesday":   { "open": "08:00", "close": "21:00", "break_start": "14:00", "break_end": "15:30", "slot_duration_minutes": 30 },
+        "wednesday": { "open": "08:00", "close": "21:00", "break_start": "14:00", "break_end": "15:30", "slot_duration_minutes": 30 },
+        "thursday":  { "open": "08:00", "close": "21:00", "break_start": "14:00", "break_end": "15:30", "slot_duration_minutes": 30 },
+        "friday":    { "open": "08:00", "close": "19:00", "slot_duration_minutes": 30 },
         "saturday":  { "open": "09:00", "close": "14:00", "slot_duration_minutes": 30 },
         "sunday":    { "closed": true }
       },
       "doctors": [
-        { "id": "dr_001", "name": "Dra. Ana García Reyes",  "specialty": "Medicina General",          "languages": ["es"], "bio": "Médico general con 10 años de experiencia." },
-        { "id": "dr_002", "name": "Dr. Carlos Mendoza",     "specialty": "Dermatología",               "languages": ["es", "en"] },
-        { "id": "dr_003", "name": "Lic. Fernanda Torres",   "specialty": "Nutrición y Dietética",      "languages": ["es"] },
-        { "id": "dr_004", "name": "Dra. Sofía Ramírez",     "specialty": "Medicina Estética",          "languages": ["es"] },
-        { "id": "dr_005", "name": "Psic. Rodrigo Salinas",  "specialty": "Psicología",                 "languages": ["es"] }
+        { "id": "dr_006", "name": "Dr. Pablo Herrera Castillo",  "specialty": "Traumatología y Ortopedia", "languages": ["es"] },
+        { "id": "dr_007", "name": "Fis. Marta Iglesias Ramos",   "specialty": "Fisioterapia",              "languages": ["es"] },
+        { "id": "dr_008", "name": "Dra. Elena Santos Prieto",    "specialty": "Medicina General",          "languages": ["es", "fr"] }
       ]
     },
     {
-      "id": "loc_norte",
-      "name": "Clínica Bienestar — Norte",
-      "address": "Blvd. Puerto Aéreo 567, Col. Moctezuma, CDMX",
-      "city": "Ciudad de México",
-      "phone": "+52 55 9876 5432",
-      "whatsapp": "+52 55 9876 5432",
-      "latitude": 19.4361,
-      "longitude": -99.0820,
+      "id": "vitalia_barcelona",
+      "name": "Vitalia Barcelona — Eixample",
+      "address": "Carrer de Provença 318, Pral.",
+      "city": "Barcelona",
+      "postal_code": "08037",
+      "phone": "+34 93 345 67 89",
+      "whatsapp": "+34 93 345 67 89",
+      "latitude": 41.3967,
+      "longitude": 2.1590,
       "specialties": [
+        "Medicina Estética",
+        "Dermatología",
         "Medicina General",
-        "Traumatología y Ortopedia",
-        "Fisioterapia",
-        "Nutrición y Dietética"
+        "Psicología"
       ],
       "schedule": {
-        "monday":    { "open": "07:00", "close": "20:00", "break_start": "14:00", "break_end": "15:00", "slot_duration_minutes": 30 },
-        "tuesday":   { "open": "07:00", "close": "20:00", "break_start": "14:00", "break_end": "15:00", "slot_duration_minutes": 30 },
-        "wednesday": { "open": "07:00", "close": "20:00", "break_start": "14:00", "break_end": "15:00", "slot_duration_minutes": 30 },
-        "thursday":  { "open": "07:00", "close": "20:00", "break_start": "14:00", "break_end": "15:00", "slot_duration_minutes": 30 },
-        "friday":    { "open": "07:00", "close": "18:00", "slot_duration_minutes": 30 },
-        "saturday":  { "open": "08:00", "close": "15:00", "slot_duration_minutes": 30 },
+        "monday":    { "open": "09:00", "close": "20:00", "break_start": "14:00", "break_end": "15:00", "slot_duration_minutes": 30 },
+        "tuesday":   { "open": "09:00", "close": "20:00", "break_start": "14:00", "break_end": "15:00", "slot_duration_minutes": 30 },
+        "wednesday": { "open": "09:00", "close": "20:00", "break_start": "14:00", "break_end": "15:00", "slot_duration_minutes": 30 },
+        "thursday":  { "open": "09:00", "close": "20:00", "break_start": "14:00", "break_end": "15:00", "slot_duration_minutes": 30 },
+        "friday":    { "open": "09:00", "close": "18:00", "slot_duration_minutes": 30 },
+        "saturday":  { "open": "10:00", "close": "14:00", "slot_duration_minutes": 30 },
         "sunday":    { "closed": true }
       },
       "doctors": [
-        { "id": "dr_006", "name": "Dr. Luis Herrera",       "specialty": "Medicina General",           "languages": ["es"] },
-        { "id": "dr_007", "name": "Dr. Miguel Ángel Ríos",  "specialty": "Traumatología y Ortopedia",  "languages": ["es"] },
-        { "id": "dr_008", "name": "Fis. Carmen Vega",       "specialty": "Fisioterapia",               "languages": ["es"] }
+        { "id": "dr_009", "name": "Dra. Núria Pujol Aran",       "specialty": "Medicina Estética",  "languages": ["es", "ca", "en"] },
+        { "id": "dr_010", "name": "Dr. Miquel Costa Ferrer",     "specialty": "Dermatología",       "languages": ["es", "ca"] },
+        { "id": "dr_011", "name": "Psic. Sara Blanco Giménez",   "specialty": "Psicología",         "languages": ["es", "ca"] }
       ]
     }
   ]
